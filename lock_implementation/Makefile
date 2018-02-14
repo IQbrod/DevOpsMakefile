@@ -1,15 +1,18 @@
 CC=gcc
-CFLAGS=-W -Wall -g -O2
-LDLIBS=-lpthread
-TESTS=test
+OFLAGS=-O3 -fPIC
+SOFLAGS=-lpthread -shared
+SLNAME=libmylock.so
 
 all: $(TESTS)
 
 %.o: %.c
-	$(CC) -o $@ -c $<  $(CFLAGS)
+	$(CC) -o $@ -c $<  $(OFLAGS)
 
-test: test.o stdes.o
-	$(CC) -o $@ $^ $(CFLAGS)
+sleepinglock: sleeping_lock.o
+	$(CC) -o $(SLNAME) $^ $(SOFLAGS)
+
+spinlock: spin_lock.o
+	$(CC) -o $(SLNAME) $^ $(SOFLAGS)
 
 clean:
-	rm -rf $(TESTS) *.o
+	rm -rf $(SLNAME) *.o
