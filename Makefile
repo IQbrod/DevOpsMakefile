@@ -23,11 +23,15 @@ queue_test: $(OBJ)
 	$(MAKE) -C $(SUBDIR)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBFLAGS)
 
-test: $(MAIN)
-	./$(MAIN)
+test: $(OBJ)
+	#Specifying $TEST
+	$(MAKE) -C $(SUBDIR) $(TEST)
+	$(CC) $^ -o $(MAIN) $(CFLAGS) $(LIBFLAGS)
+	./$(MAIN) $(NB_THREAD)
 
 clean-dirt:
 	rm -rf *.o	
 
 clean: clean-dirt
-	rm -rf $(MAIN) 
+	rm -rf $(MAIN)
+	$(MAKE) -C $(SUBDIR) clean

@@ -8,10 +8,13 @@ all: spinlock clean-dirt
 %.o: %.c
 	$(CC) -o $@ -c $<  $(CFLAGS)
 
-sleepinglock: sleeping_lock.o
+sleepinglock: clean sleeping_lock
+spinlock: clean spin_lock
+
+sleeping_lock: sleeping_lock.o
 	$(CC) -o $(TARGET) $^ $(LDFLAGS)
 
-spinlock: spin_lock.o
+spin_lock: spin_lock.o
 	$(CC) -o $(TARGET) $^ $(LDFLAGS)
 
 clean-dirt:
