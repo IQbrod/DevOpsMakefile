@@ -1,16 +1,16 @@
 CC=gcc
-OFLAGS=-O3 -fPIC
-SOFLAGS=-lpthread -shared
-SLNAME=libmylock.so
+CFLAGS=-O3 -fPIC
+LDFLAGS=-lpthread -shared
+TARGET=libmylock.so
 
 %.o: %.c
-	$(CC) -o $@ -c $<  $(OFLAGS)
+	$(CC) -o $@ -c $<  $(CFLAGS)
 
 sleepinglock: sleeping_lock.o
-	$(CC) -o $(SLNAME) $^ $(SOFLAGS)
+	$(CC) -o $(TARGET) $^ $(LDFLAGS)
 
 spinlock: spin_lock.o
-	$(CC) -o $(SLNAME) $^ $(SOFLAGS)
+	$(CC) -o $(TARGET) $^ $(LDFLAGS)
 
 clean:
-	rm -rf $(SLNAME) *.o
+	rm -rf $(TARGET) *.o
