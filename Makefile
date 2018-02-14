@@ -18,8 +18,13 @@ main.o: main.c queue.h
 	$(CC) -o $@ -c $<  $(OFLAGS)
 
 queue_test: $(OBJ)
+	#Standard GNU Make Environnement Variable = $(MAKE)
+	#https://www.gnu.org/software/make/manual/make.html#Recursion
 	$(MAKE) -C $(SUBDIR)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBFLAGS)
+
+test: $(MAIN)
+	./$(MAIN)
 
 clean-dirt:
 	rm -rf *.o	
