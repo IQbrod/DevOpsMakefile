@@ -3,8 +3,6 @@ OFLAGS=-O3 -fPIC
 SOFLAGS=-lpthread -shared
 SLNAME=libmylock.so
 
-all: $(TESTS)
-
 %.o: %.c
 	$(CC) -o $@ -c $<  $(OFLAGS)
 
