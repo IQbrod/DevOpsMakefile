@@ -1,15 +1,16 @@
 # Compiler
 CC=gcc
-# Flags
-OFLAGS=-O3
-CFLAGS=-lpthread
-LIBFLAGS=-L./lock_implementation -lmylock
 # Files
 MAIN=queue_test
 SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
+SUBDIR=lock_implementation
+# Flags
+OFLAGS=-O3
+CFLAGS=-lpthread
+LIBFLAGS=-L./$(SUBDIR) -lmylock
 
-all: $(MAIN)
+all: $(MAIN) clean-dirt
 
 main.o: main.c queue.h
 	$(CC) -o $@ -c $<  $(OFLAGS)
@@ -17,7 +18,11 @@ main.o: main.c queue.h
 	$(CC) -o $@ -c $<  $(OFLAGS)
 
 queue_test: $(OBJ)
+	$(MAKE) -C $(SUBDIR)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBFLAGS)
 
-clean:
-	rm -rf $(MAIN) *.o
+clean-dirt:
+	rm -rf *.o	
+
+clean: clean-dirt
+	rm -rf $(MAIN) 

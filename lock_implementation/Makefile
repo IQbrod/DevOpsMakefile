@@ -3,6 +3,8 @@ CFLAGS=-O3 -fPIC
 LDFLAGS=-lpthread -shared
 TARGET=libmylock.so
 
+all: spinlock clean-dirt
+
 %.o: %.c
 	$(CC) -o $@ -c $<  $(CFLAGS)
 
@@ -12,5 +14,8 @@ sleepinglock: sleeping_lock.o
 spinlock: spin_lock.o
 	$(CC) -o $(TARGET) $^ $(LDFLAGS)
 
-clean:
-	rm -rf $(TARGET) *.o
+clean-dirt:
+	rm -rf *.o
+
+clean: clean-dirt
+	rm -rf $(TARGET)
