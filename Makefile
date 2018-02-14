@@ -6,6 +6,9 @@ MAIN=queue_test
 
 all: $(MAIN)
 
+main.o: main.c queue.h
+	$(CC) -o $@ -c $<  $(OFLAGS)
+
 %.o: %.c
 	$(CC) -o $@ -c $<  $(OFLAGS)
 
